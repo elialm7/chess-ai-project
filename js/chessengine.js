@@ -14,7 +14,7 @@ var ChessEngine = (function() {
         totalEvaluation += evaluateKingSafety(board);     
       totalEvaluation += evaluatePieceActivity(board); 
        totalEvaluation += evaluateCentralControl(board); 
-       //totalEvaluation += evaluatePieceDevelopment(board); 
+       totalEvaluation += evaluatePieceDevelopment(board); 
        totalEvaluation += evaluateSpace(board); 
        totalEvaluation += checkNotLosingPieces(board);
       
@@ -69,9 +69,9 @@ var ChessEngine = (function() {
 
         // Basic safety check: count attacking pieces around the king
         var attackingMoves = getAttackingMoves(kingSquare, board, color);
-        kingSafetyScore += attackingMoves.length * 10; // Penalize for each attacking piece
+        kingSafetyScore -= attackingMoves.length * 10; // Penalize for each attacking piece
 
-        return -kingSafetyScore;
+        return kingSafetyScore;
     }
 
     function findKingSquare(board, color) {
